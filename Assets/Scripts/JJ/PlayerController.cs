@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+
         // Can clamp these to reduce the drift
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
