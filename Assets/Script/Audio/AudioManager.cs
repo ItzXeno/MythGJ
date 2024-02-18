@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,25 +6,34 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    public enum GameState { Menu, InGame, Finish };
+    private GameState currentState;
+
+
     public static AudioManager instance;
+
     public AudioClip menuBGM;
     public AudioClip gameBGM;
-    private AudioSource bgmSource;
-    private enum GameState { Menu, InGame };
-    private GameState currentState;
+    public AudioClip finishClip;
+
+    public AudioSource bgmSource;
+    public AudioSource sfxSource;
 
     private void Awake()
     {
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
+        #region Manager_Part
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        #endregion
 
+        #region BGM_Part
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             CheckGameState(GameState.InGame);
@@ -32,11 +42,11 @@ public class AudioManager : MonoBehaviour
         {
             CheckGameState(GameState.Menu);
         }
+        #endregion
     }
 
     private void Start()
     {
-        bgmSource = GetComponent<AudioSource>();
         //ChangeBGM();
     }
 
@@ -54,6 +64,8 @@ public class AudioManager : MonoBehaviour
                 break;
             case GameState.InGame:
                 break;
+            case GameState.Finish:
+                break;
         }
     }
 
@@ -62,14 +74,20 @@ public class AudioManager : MonoBehaviour
         switch (currentState)
         {
             case GameState.Menu:
-                PlayBGM(menuBGM); 
+                PlayBGMClip(menuBGM); 
                 break;
             case GameState.InGame:
-                PlayBGM(gameBGM);
+                PlayBGMClip(gameBGM);
+                break;
+            case GameState.Finish:
+                StopPlaying();
+                PlaySFXClip(finishClip);
                 break;
         }
     }
-    public void PlayBGM(AudioClip clip)
+
+    //For BGM only
+    public void PlayBGMClip(AudioClip clip)
     {
         if (bgmSource.clip != clip)
         {
@@ -79,43 +97,17 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    //private void PlayBGM(AudioClip clip)
-    //{
-    //    if (audioSource.clip != clip)
-    //    {
-    //        audioSource.clip = clip;
-    //        audioSource.loop = true;
-    //        audioSource.Play();
-    //    }
-    //}
+    //For all OTHER audio clips
+    public void PlaySFXClip(AudioClip clip)
+    {
+        sfxSource.clip = clip;
+        sfxSource.loop = false;
 
-    //void Start()
-    //{
-    //    SceneManager.sceneLoaded += OnSceneLoaded;
-    //}
+        sfxSource.PlayOneShot(clip);
+    }
 
-    //void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    switch (scene.name)
-    //    {
-    //        case "MainMenu": // Replace with your actual main menu scene name
-    //            PlayBGM(mainMenuBGM);
-    //            break;
-    //        case "Game": // Replace with your actual game scene name
-    //            PlayBGM(gameBGM);
-    //            break;
-    //            // Add more cases as needed for other scenes/BGMs
-    //    }
-    //}
-
-
-    //public void PlaySFX(AudioClip clip)
-    //{
-    //    sfxSource.PlayOneShot(clip); // Plays the SFX without interrupting any currently playing SFX
-    //}
-
-    //void OnDestroy()
-    //{
-    //    SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe to avoid memory leaks
-    //}
+    public void StopPlaying() 
+    {
+        bgmSource.Stop();     
+    }
 }
