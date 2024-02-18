@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject playBut, credBut, quitBut, gTitle, credText, backBut;
+    public GameObject playBut, credBut, quitBut, gTitle, credText, backBut, controls;
 
     //new
     [SerializeField] private AudioClip buttonClip;
@@ -16,16 +16,28 @@ public class MainMenu : MonoBehaviour
     {
         credText.SetActive(false);
         backBut.SetActive(false);
+        controls.SetActive(false);
         audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
     }
+
     public void Play()
-    {    
-        AudioManager.instance.PlaySFXClip(buttonClip);
+    {
+        if (controls.activeSelf == false)
+        {
+            controls.SetActive(true);
+            credBut.SetActive(false);
+            quitBut.SetActive(false);
+            gTitle.SetActive(false);
+        }
+        else
+        {
+            AudioManager.instance.PlaySFXClip(buttonClip);
 
-        Destroy(AudioManager.instance.gameObject);
+            Destroy(AudioManager.instance.gameObject);
 
-        SceneManager.LoadScene(1);
-        audioManager.CheckGameState(AudioManager.GameState.InGame);
+            SceneManager.LoadScene(1);
+            audioManager.CheckGameState(AudioManager.GameState.InGame);
+        }
     }
     public void quitGame()
     {
