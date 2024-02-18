@@ -114,10 +114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementType: 2
   minSpeed: 2
-  maxSpeed: 5
-  zigzagFrequency: 2
+  maxSpeed: 3.37
+  zigzagFrequency: 1.13
   zigzagMagnitude: 0.1
-  spawner: {fileID: 0}
 --- !u!61 &7251082519807686814
 BoxCollider2D:
   m_ObjectHideFlags: 0

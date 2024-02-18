@@ -224,8 +224,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202682915}
   m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: -5, y: -12.414, z: 12.11}
-  m_LocalScale: {x: 1.6134846, y: 1.6134846, z: 1.6134846}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalScale: {x: 0.693331, y: 0.693331, z: 0.693331}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 831226527}
@@ -243,10 +243,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfe14ea91604aa439bb687f0be455ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnLocationOffset: {x: -0.06, y: 0.43, z: 0}
   passengerPrefab: {fileID: 1347801792728043699, guid: 2b280400b6f25da49ab56ae2d4d0c42d, type: 3}
   rows: 5
   columns: 2
-  spacing: 0.39
+  spacing: 0.2
 --- !u!1 &276193546
 GameObject:
   m_ObjectHideFlags: 0
