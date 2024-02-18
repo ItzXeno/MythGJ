@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
 
     float momentumDecrease = 1f; // how much it takes away from the momentum CDs
 
+    //new
+    [SerializeField] private AudioClip damageClip;
+
+    [HideInInspector] AudioManager audioManager;
+
     float TiltSpeed { get { return tiltSpeed; } set { tiltSpeed = value; }}
     float TiltCorrectionSpeed { get { return tiltCorrectionSpeed / 10; } set { tiltCorrectionSpeed = value; } }
     float MomentumIncreaseSpeed { get { return momentumIncreaseSpeed / 10; } set { momentumIncreaseSpeed = value; } }
@@ -94,6 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         damageCD = tiltTimeDamageIntervals;
+        audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
     }
 
     void TiltLeft(float dt)
@@ -199,6 +205,9 @@ public class PlayerController : MonoBehaviour
     public void DealDamage(int damage)
     {
         Health -= damage;
+
+        //new
+        AudioManager.instance.PlaySFXClip(damageClip);
     }
 
     public void AddPoints(int pointsToAdd)
@@ -210,6 +219,10 @@ public class PlayerController : MonoBehaviour
     {
         isAlive = false;
         canMove = false;
+
+        //new
+        audioManager.CheckGameState(AudioManager.GameState.Finish);
+
         StartCoroutine(GetComponent<GameOverHandler>().GameOver(this));
     }
 
