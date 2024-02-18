@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    private PassengerSpawner spawner;
     [SerializeField] private int health = 10;
     [SerializeField] private int points;
     private int highscore;
@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         damageCD = tiltTimeDamageIntervals;
         audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
+        spawner = GameObject.Find("Spawner").gameObject.GetComponent<PassengerSpawner>();
     }
 
     void TiltLeft(float dt)
@@ -209,6 +210,7 @@ public class PlayerController : MonoBehaviour
 
         //new
         AudioManager.instance.PlaySFXClip(damageClip);
+        spawner.MakePassengerFallOff();
     }
 
     public void AddPoints(int pointsToAdd)

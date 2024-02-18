@@ -9,12 +9,12 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float minSpeed = 2f;
     [SerializeField] private float maxSpeed = 5f;
     private float speed;
-   
+
     [SerializeField]
     private float zigzagFrequency = 2f;
     [SerializeField]
     private float zigzagMagnitude = 0.5f;
-
+    private PassengerSpawner spawner;
     // For zigzag movement calculation
     private Vector3 axis;
     private Vector3 direction;
@@ -24,7 +24,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         speed = Random.Range(minSpeed, maxSpeed);
-
+        spawner = GameObject.Find("Spawner").gameObject.GetComponent<PassengerSpawner>();
         // Set initial direction based on spawn side for horizontal and zigzag enemies
         switch (movementType)
         {
@@ -61,7 +61,15 @@ public class EnemyMovement : MonoBehaviour
         }
     }
     #endregion
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag ==  "Player") {
 
+           
+            collision.gameObject.GetComponent<PlayerController>().DealDamage(1);
+            Destroy(gameObject);
+        }
+    }
     #region Movement Methods
     void MoveVertical()
     {
@@ -89,9 +97,11 @@ public class EnemyMovement : MonoBehaviour
     bool IsOffScreen()
     {
         Vector2 screenPosition = Camera.main.WorldToViewportPoint(transform.position);
-        
+
         return screenPosition.x < 0 || screenPosition.x > 1 || screenPosition.y < 0 || screenPosition.y > 1;
     }
+
+    
     #endregion
 
     #region Inspector Methods
