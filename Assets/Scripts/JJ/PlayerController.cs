@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer leftWing;
     [SerializeField] SpriteRenderer rightWing;
 
+
     float damageCD = 0; // the tick CD of when u lose hp from tilting too much
     float momentumIncreaseSpeed = 1f; // how much momentum increases by
 
@@ -37,13 +38,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float rightMomentum;
 
+    //new
+    [SerializeField] private AudioClip damageClip;
+
+
     float momentumDecrease = 1f; // how much it takes away from the momentum CDs
 
     float TiltSpeed { get { return tiltSpeed; } set { tiltSpeed = value; }}
     float TiltCorrectionSpeed { get { return tiltCorrectionSpeed / 10; } set { tiltCorrectionSpeed = value; } }
     float MomentumIncreaseSpeed { get { return momentumIncreaseSpeed / 10; } set { momentumIncreaseSpeed = value; } }
     float TiltDirection { get { return tiltDirection; } set { tiltDirection = Mathf.Clamp(value, -1, 1); } }
-   
+
+    //new
+
+    [HideInInspector] AudioManager audioManager;
+
     public int Health
     {
         get { return health; }
@@ -66,11 +75,12 @@ public class PlayerController : MonoBehaviour
     }
 
     Rigidbody2D rb; // Reference to the Rigidbody component
-
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         damageCD = tiltTimeDamageIntervals;
+        audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
     }
 
     void TiltLeft(float dt)
@@ -169,11 +179,18 @@ public class PlayerController : MonoBehaviour
     public void DealDamage(int damage)
     {
         Health -= damage;
+
+        //new
+
+        AudioManager.instance.PlaySFXClip(damageClip);
     }
     void Death()
-    {
+    {       
         isAlive = false;
         canMove = false;
+
+        //new
+        audioManager.CheckGameState(AudioManager.GameState.Finish);
     }
 
     void FixedUpdate()

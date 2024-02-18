@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
         ChangeBGM();
     }
 
-    private void CheckGameState(GameState newState)
+    public void CheckGameState(GameState newState)
     {
         currentState = newState;
         switch (currentState)

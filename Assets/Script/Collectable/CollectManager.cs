@@ -35,7 +35,7 @@ public class CollectManager : MonoBehaviour
         {
             IncreaseScoreOverTime();
         }
-        Debug.Log(score);
+        Debug.Log("Score : "  + score);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
