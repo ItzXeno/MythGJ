@@ -1086,11 +1086,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dragon - https://crossheadstudios.com/topdown-tokens/
-
-    Clouds - https://artisan-studio.itch.io/2d-pixel-art-semi-realistic-clouds
-
-'
+  m_text: "Dragon - https://crossheadstudios.com/topdown-tokens/\nClouds - https://artisan-studio.itch.io/2d-pixel-art-semi-realistic-clouds\nPassengers
+    - https://shorturl.at/coJOP\nWitches - https://shorturl.at/aRY67\nSFX \nIn Menu:
+    \r\nhttps://pixabay.com/music/video-games-8-bit-classic-arcade-game-116832/\r\nIn
+    Game:\r\nhttps://pixabay.com/music/upbeat-kim-lightyear-legends-109307/\r\nGame
+    Fin sound: \r\nhttps://pixabay.com/sound-effects/videogame-death-sound-43894/\r\nUI
+    SFX:\r\nhttps://pixabay.com/sound-effects/game-ui-sounds-14857/\r\nCollect Sound:
+    \r\nhttps://pixabay.com/sound-effects/8-bit-game-2-186976/\r\r\nGetting hit:\r\nhttps://pixabay.com/sound-effects/death-103830/\r\nCollect
+    sound 2:\r\nhttps://pixabay.com/sound-effects/level-up-enhancement-8-bit-retro-sound-effect-153002/\nJJ
+    - Programmer\t\t\t\tHsi-Wei - SFX and Artist\nChris - Programmer\t\t\tBen - Designer"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1117,8 +1121,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1153,7 +1157,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -544.3864, y: -153.18814, z: -561.9473, w: -255.03848}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
