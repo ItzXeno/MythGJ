@@ -11,11 +11,16 @@ public class GameOverHandler : MonoBehaviour
     [SerializeField] GameObject ScoreFrame;
     [SerializeField] GameObject HighScoreFrame;
     [SerializeField] GameObject TimeFrame;
+    [SerializeField] GameObject InGameUI;
     [SerializeField] GameObject PlayAgainButton;
 
     [SerializeField] TextMeshProUGUI Score;
     [SerializeField] TextMeshProUGUI HighScore;
     [SerializeField] TextMeshProUGUI Time;
+
+    [SerializeField] TextMeshProUGUI InGame_Passengers;
+    [SerializeField] TextMeshProUGUI InGame_Time;
+    [SerializeField] TextMeshProUGUI InGame_Score;
 
     [HideInInspector] AudioManager audioManager;
 
@@ -25,14 +30,25 @@ public class GameOverHandler : MonoBehaviour
     private float maxScale = 1.5f; // Maximum scale factor
     private Vector3 originalScale; // Original scale of the button
 
+    PlayerController playerController1;
+
     void Start()
     {
         audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
+        playerController1 = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
-    public IEnumerator GameOver(PlayerController playerController)
+    private void Update()
+    {
+        InGame_Passengers.text = $"Passengers: {playerController1.Health}";
+        InGame_Time.text = $"Time: {(int)playerController1.timeAlive}";
+        InGame_Score.text = $"Points: {playerController1.Points}";
+    }
+
+public IEnumerator GameOver(PlayerController playerController)
     {
         WinstateUI.SetActive(true);
+        InGameUI.SetActive(false);
 
         originalScale = PlayAgainButton.transform.localScale;
 
