@@ -22,7 +22,7 @@ public class CollectManager : MonoBehaviour
         }
         else
         {
-            canIncreaseScore= false;
+            canIncreaseScore = false;
         }
     }
 
@@ -32,6 +32,7 @@ public class CollectManager : MonoBehaviour
         {
             IncreaseScoreOverTime();
         }
+
         Debug.Log("Score : " + GetComponent<PlayerController>().Points);
     }
 
