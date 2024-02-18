@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private int health = 10;
-    public int points;
+    [SerializeField] private int points;
+    private int highscore;
+    public float timeAlive;
 
     public float moveSpeed = 5f; // Adjust this to change movement speed
     [SerializeField] float tiltSpeed = 3f;
@@ -43,7 +46,28 @@ public class PlayerController : MonoBehaviour
     float TiltCorrectionSpeed { get { return tiltCorrectionSpeed / 10; } set { tiltCorrectionSpeed = value; } }
     float MomentumIncreaseSpeed { get { return momentumIncreaseSpeed / 10; } set { momentumIncreaseSpeed = value; } }
     float TiltDirection { get { return tiltDirection; } set { tiltDirection = Mathf.Clamp(value, -1, 1); } }
-   
+    public int Points { get { return points; } set { if (isAlive) { points = value; } } }
+    
+    public int Highscore 
+    { 
+        get { return PlayerPrefs.GetInt("Highscore"); } 
+        
+        set {
+            print("Setting HIGHSCORE");
+            int currentHighscore = PlayerPrefs.GetInt("Highscore"); 
+            if(value > currentHighscore)
+            {
+                PlayerPrefs.SetInt("Highscore", value);
+                print($"New Highscore: {value}! Previous: {currentHighscore}");
+            }
+            else
+            {
+                print($"The score: {value} was not higher than the current Highscore: {highscore}");
+            }
+        
+        } 
+    }
+
     public int Health
     {
         get { return health; }
@@ -161,6 +185,13 @@ public class PlayerController : MonoBehaviour
                 damageCD = tiltTimeDamageIntervals;
             }
 
+            timeAlive += 1 * Time.deltaTime;
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            DealDamage(10000);
         }
 
         //print(TiltDirection);
@@ -170,10 +201,17 @@ public class PlayerController : MonoBehaviour
     {
         Health -= damage;
     }
+
+    public void AddPoints(int pointsToAdd)
+    {
+        points += pointsToAdd;
+    }
+
     void Death()
     {
         isAlive = false;
         canMove = false;
+        StartCoroutine(GetComponent<GameOverHandler>().GameOver(this));
     }
 
     void FixedUpdate()
@@ -247,9 +285,9 @@ public class PlayerController : MonoBehaviour
             }
 
             if(movement.x <= 0 && rightMomentum > 0) { rightMomentum = Mathf.Clamp(rightMomentum - momentumDecrease * Time.fixedDeltaTime, 0, 100); }
-            if (movement.x >= 0 && leftMomentum > 0) { print(Mathf.Clamp(leftMomentum - momentumDecrease * Time.fixedDeltaTime, 0, 100)); ; leftMomentum = Mathf.Clamp(leftMomentum - momentumDecrease * Time.fixedDeltaTime, 0, 100); }
+            if (movement.x >= 0 && leftMomentum > 0) { leftMomentum = Mathf.Clamp(leftMomentum - momentumDecrease * Time.fixedDeltaTime, 0, 100); }
 
-            print(movement.x);
+           //print(movement.x);
             
             // Move the character
             transform.position += new Vector3(movement.x, movement.y, 0) * moveSpeed * Time.fixedDeltaTime;
