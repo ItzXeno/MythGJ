@@ -157,16 +157,16 @@ public class EnemySpawner : MonoBehaviour
         switch (side)
         {
             case SpawnSide.Top:
-                x = Random.Range(-camWidth / 4, camWidth / 4);
+                x = Random.Range(-camWidth / 3, camWidth / 3);
                 y = cam.orthographicSize;
                 break;
             case SpawnSide.Left:
                 x = -camWidth / 2;
-                y = Random.Range(-camHeight / 2, camHeight / 2);
+                y = Random.Range(-camHeight / 3, camHeight / 3);
                 break;
             case SpawnSide.Right:
                 x = camWidth / 2;
-                y = Random.Range(-camHeight / 2, camHeight / 2);
+                y = Random.Range(-camHeight / 3, camHeight / 3);
                 break;
             default:
                 x = 0;

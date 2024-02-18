@@ -59,6 +59,13 @@ public class EnemyMovement : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        speed += 1 *Time.deltaTime;
+
+    }
+
+    private void FixedUpdate()
+    {
+        print(speed);
     }
     #endregion
     private void OnCollisionEnter2D(Collision2D collision)
