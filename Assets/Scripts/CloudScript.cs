@@ -27,7 +27,7 @@ public class CloudScript : MonoBehaviour
         cornerX = Random.Range(-camWidth/2, camWidth/2);
         cornerY = cam.orthographicSize + 1f;
         Instantiate(clouds[Random.Range(0,clouds.Length)], new Vector3(cornerX, cornerY + Random.Range(0f, 5f), transform.position.z), transform.rotation);
-       yield return new WaitForSeconds(1f);
+       yield return new WaitForSeconds(Mathf.Clamp(Random.Range(4f, 8f) -(GameObject.Find("Player").GetComponent<PlayerController>().timeAlive * .1f), .2f, 8f));
         StartCoroutine(spawnClouds());
     }
 }

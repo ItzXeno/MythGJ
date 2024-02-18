@@ -17,7 +17,7 @@ public class CloudMove : MonoBehaviour
     {
         
         transform.Translate(Vector2.down * speed * Time.deltaTime);
-        speed += 1f * Time.deltaTime;
+        speed += .5f * Time.deltaTime * (GameObject.Find("Player").GetComponent<PlayerController>().timeAlive * 0.5f);
         if (isOffscreen())
         {
             Destroy(gameObject);
