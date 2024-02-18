@@ -17,11 +17,18 @@ public class GameOverHandler : MonoBehaviour
     [SerializeField] TextMeshProUGUI HighScore;
     [SerializeField] TextMeshProUGUI Time;
 
+    [HideInInspector] AudioManager audioManager;
+
     private float lerpSpeed = 1f; // The speed of the interpolation
 
     private float scaleDuration = 1f; // Duration for scaling up/down
     private float maxScale = 1.5f; // Maximum scale factor
     private Vector3 originalScale; // Original scale of the button
+
+    void Start()
+    {
+        audioManager = GameObject.Find("Manager").GetComponent<AudioManager>();
+    }
 
     public IEnumerator GameOver(PlayerController playerController)
     {
@@ -109,5 +116,7 @@ public class GameOverHandler : MonoBehaviour
     {
         // Reload the current scene by its name
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        audioManager.CheckGameState(AudioManager.GameState.InGame);
     }
 }

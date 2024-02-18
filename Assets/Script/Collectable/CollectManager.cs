@@ -9,16 +9,13 @@ public class CollectManager : MonoBehaviour
 {
     [Header("Score System")]
     [SerializeField] AudioClip collectClip;
-    [HideInInspector] public int score = 0;
+    //[HideInInspector] public int score = 0;
 
     private float scoreIncreaseTimer = 0f;
     private bool canIncreaseScore;
 
-    //[SerializeField] uiScript uiScript;
     void Awake()
     {
-        score = 0;
-
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             canIncreaseScore = true;
@@ -35,14 +32,14 @@ public class CollectManager : MonoBehaviour
         {
             IncreaseScoreOverTime();
         }
-        Debug.Log("Score : "  + score);
+        Debug.Log("Score : " + GetComponent<PlayerController>().Points);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Collectible"))
         {
-            score += 10; // Increment the score
+            GetComponent<PlayerController>().Points += 10; // Increment the score
             AudioManager.instance.PlaySFXClip(collectClip);
 
             Destroy(other.gameObject); // Remove the collectible from the scene
@@ -54,7 +51,7 @@ public class CollectManager : MonoBehaviour
 
         if (scoreIncreaseTimer >= 2f) // 2 seconds have passed
         {
-            score += 10; // Increase the score by 10
+            GetComponent<PlayerController>().Points += 10; // Increase the score by 10
             scoreIncreaseTimer = 0f; // Reset the timer
 
             // Update UI here, if necessary
