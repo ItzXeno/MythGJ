@@ -89,8 +89,7 @@ public class EnemyMovement : MonoBehaviour
     bool IsOffScreen()
     {
         Vector2 screenPosition = Camera.main.WorldToViewportPoint(transform.position);
-        // Check if the object is outside the viewport
-        // Note: 0,0 is the bottom left of the screen, 1,1 is the top right
+        
         return screenPosition.x < 0 || screenPosition.x > 1 || screenPosition.y < 0 || screenPosition.y > 1;
     }
     #endregion
