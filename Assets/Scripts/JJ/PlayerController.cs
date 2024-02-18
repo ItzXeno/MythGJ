@@ -230,25 +230,6 @@ public class PlayerController : MonoBehaviour
     {
         if (isAlive)
         {
-
-
-            //float moveHorizontal = Input.GetAxis("Horizontal");
-            //float moveVertical = Input.GetAxis("Vertical");
-
-            // Can clamp these to reduce the drift
-            //float moveHorizontal = 0 ;
-
-            //if (Input.GetKey(KeyCode.A)){
-            //    moveHorizontal -= 1f;
-            // }
-
-            //if (Input.GetKey(KeyCode.D))
-            //{
-            //    moveHorizontal += 1f;
-            //}
-
-            //moveHorizontal = Mathf.Clamp(moveHorizontal, -1, 1);
-
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
 
