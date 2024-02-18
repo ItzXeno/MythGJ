@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
         gTitle.SetActive(false);
         credText.SetActive(true);
         backBut.SetActive(true);
+        print("ADADAddadadaD");
     }
 
     public void Back()

@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 40867378}
   - component: {fileID: 40867377}
   - component: {fileID: 40867376}
-  - component: {fileID: 40867375}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -164,24 +163,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -338}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &40867375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40867373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c7a29f9011f5543973579045883944, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playBut: {fileID: 176212484}
-  credBut: {fileID: 576978609}
-  quitBut: {fileID: 40867373}
-  gTitle: {fileID: 212992564}
-  credText: {fileID: 509668810}
-  backBut: {fileID: 863767625}
 --- !u!114 &40867376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 40867375}
+      - m_Target: {fileID: 1309397598}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: quitGame
         m_Mode: 1
@@ -288,7 +269,6 @@ GameObject:
   - component: {fileID: 176212489}
   - component: {fileID: 176212488}
   - component: {fileID: 176212487}
-  - component: {fileID: 176212486}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -317,24 +297,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -163}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &176212486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176212484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c7a29f9011f5543973579045883944, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playBut: {fileID: 176212484}
-  credBut: {fileID: 576978609}
-  quitBut: {fileID: 40867373}
-  gTitle: {fileID: 212992564}
-  credText: {fileID: 509668810}
-  backBut: {fileID: 863767625}
 --- !u!114 &176212487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,7 +341,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 176212486}
+      - m_Target: {fileID: 1309397598}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
@@ -1237,7 +1199,6 @@ GameObject:
   - component: {fileID: 576978614}
   - component: {fileID: 576978613}
   - component: {fileID: 576978612}
-  - component: {fileID: 576978611}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -1266,24 +1227,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -255}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &576978611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576978609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c7a29f9011f5543973579045883944, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playBut: {fileID: 176212484}
-  credBut: {fileID: 576978609}
-  quitBut: {fileID: 40867373}
-  gTitle: {fileID: 212992564}
-  credText: {fileID: 509668810}
-  backBut: {fileID: 863767625}
 --- !u!114 &576978612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,7 +1271,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 576978611}
+      - m_Target: {fileID: 1309397598}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: Credits
         m_Mode: 1
@@ -1609,7 +1552,6 @@ GameObject:
   - component: {fileID: 863767630}
   - component: {fileID: 863767629}
   - component: {fileID: 863767628}
-  - component: {fileID: 863767627}
   m_Layer: 5
   m_Name: BackBut
   m_TagString: Untagged
@@ -1638,24 +1580,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -338}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &863767627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863767625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c7a29f9011f5543973579045883944, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playBut: {fileID: 176212484}
-  credBut: {fileID: 576978609}
-  quitBut: {fileID: 40867373}
-  gTitle: {fileID: 212992564}
-  credText: {fileID: 509668810}
-  backBut: {fileID: 863767625}
 --- !u!114 &863767628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1700,7 +1624,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 863767627}
+      - m_Target: {fileID: 1309397598}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -1998,6 +1922,7 @@ GameObject:
   - component: {fileID: 1309397596}
   - component: {fileID: 1309397595}
   - component: {fileID: 1309397594}
+  - component: {fileID: 1309397598}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2093,6 +2018,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1309397598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309397593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c7a29f9011f5543973579045883944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playBut: {fileID: 176212484}
+  credBut: {fileID: 576978609}
+  quitBut: {fileID: 40867373}
+  gTitle: {fileID: 212992564}
+  credText: {fileID: 509668810}
+  backBut: {fileID: 863767625}
 --- !u!1 &1800859496
 GameObject:
   m_ObjectHideFlags: 0
