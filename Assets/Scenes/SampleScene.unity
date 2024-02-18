@@ -356,19 +356,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c462e9fa4aae2e74d94c96dc3e382e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  health: 10
   points: 0
-  whenDamageIsTaken: 0.1
-  tiltTimeDamageIntervals: 0.5
+  moveSpeed: 5
+  tiltSpeed: 0.25
   pressPunish: 0
   isTilting: 0
-  tiltSpeed: 0.25
+  whenDamageIsTaken: 0.1
+  tiltTimeDamageIntervals: 0.5
   tiltCorrectionSpeed: 5
   tiltDirection: 0
-  wingTransitionSpeed: 1
   pressTiltPunish: 0.1
   leftWing: {fileID: 299338708}
   rightWing: {fileID: 962032475}
+  leftMomentum: 0
+  rightMomentum: 0
 --- !u!50 &831226525
 Rigidbody2D:
   serializedVersion: 4

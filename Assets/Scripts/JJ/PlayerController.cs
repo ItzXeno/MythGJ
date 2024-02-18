@@ -5,33 +5,39 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    private int health = 1000;
-    public float moveSpeed = 5f; // Adjust this to change movement speed
+    [SerializeField] private int health = 10;
     public int points;
+
+    public float moveSpeed = 5f; // Adjust this to change movement speed
+    [SerializeField] float tiltSpeed = 3f;
 
     bool canMove = true;
     bool isAlive = true;
 
-    [SerializeField] float whenDamageIsTaken = .1f;
-    [SerializeField] float tiltTimeDamageIntervals = .5f;
     [SerializeField] bool pressPunish = false;
-
-    float damageCD = 0;
-
     [SerializeField] bool isTilting;
-    [SerializeField] float tiltSpeed = 3f;
-    float momentumIncreaseSpeed = 1f;
-    [SerializeField] float tiltCorrectionSpeed = 3f;
 
-    [SerializeField] float tiltDirection = 0f;
-    [SerializeField]float wingTransitionSpeed = 1f;
-    [SerializeField] float pressTiltPunish = .1f;
+    [SerializeField] float whenDamageIsTaken = .1f; // in terms of tiltDirection when youll take damage
+    [SerializeField] float tiltTimeDamageIntervals = .5f; // how often youll take damage so .5f every .5 seconds ud take damage
+
+    [SerializeField] float tiltCorrectionSpeed = 3f; // how fast the tilt gets correction
+
+    [SerializeField] float tiltDirection = 0f; // direction of tilt
+    [SerializeField] float pressTiltPunish = .1f; // how much they get punsihed on press
 
     [SerializeField] SpriteRenderer leftWing;
     [SerializeField] SpriteRenderer rightWing;
 
+    float damageCD = 0; // the tick CD of when u lose hp from tilting too much
+    float momentumIncreaseSpeed = 1f; // how much momentum increases by
+
+    [SerializeField]
     float leftMomentum; // the more u hold the direction the more tilt
+
+    [SerializeField]
     float rightMomentum;
+
+    float momentumDecrease = 1f; // how much it takes away from the momentum CDs
 
     float TiltSpeed { get { return tiltSpeed; } set { tiltSpeed = value; }}
     float TiltCorrectionSpeed { get { return tiltCorrectionSpeed / 10; } set { tiltCorrectionSpeed = value; } }
@@ -104,7 +110,7 @@ public class PlayerController : MonoBehaviour
         Color targetColor = Color.Lerp(Color.white, Color.black, Normalize(TiltDirection, -1, 1, 1, -1) );//(TiltDirection + 1f) / 2f
 
         // Smoothly transition the color of the left wing
-        leftWing.color = Color.Lerp(leftWing.color, targetColor, 1);//wingTransitionSpeed * Time.deltaTime
+        leftWing.color = Color.Lerp(leftWing.color, targetColor, 1);
 
     }
 
@@ -114,7 +120,7 @@ public class PlayerController : MonoBehaviour
         Color targetColor = Color.Lerp(Color.white, Color.black, Normalize(TiltDirection, -1, 1, -1, 1));//(TiltDirection + 1f) / 2f
 
         // Smoothly transition the color of the left wing
-        rightWing.color = Color.Lerp(leftWing.color, targetColor, 1);//wingTransitionSpeed * Time.deltaTime
+        rightWing.color = Color.Lerp(leftWing.color, targetColor, 1);
 
     }
 
@@ -133,8 +139,6 @@ public class PlayerController : MonoBehaviour
 
         if (canMove)
         {
-            if (!Input.GetKey(KeyCode.A)) { leftMomentum = 0f; }
-            if (!Input.GetKey(KeyCode.D)) { rightMomentum = 0f; }
 
             TiltCorrection(dt);
             LeftWingColorLerp();
@@ -214,7 +218,7 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = new Vector2(moveHorizontal, moveVertical).normalized;
 
             isTilting = movement.x > 0 || movement.x < 0 ? true : false;
-            if (isTilting) { print(isTilting); }
+            //if (isTilting) { print(isTilting); }
 
             float dt = Time.deltaTime;
 
@@ -225,12 +229,9 @@ public class PlayerController : MonoBehaviour
                     TiltLeft(dt);
                     if (!Input.GetKey(KeyCode.D))
                     {
-                        //leftMomentum += momentumIncreaseSpeed * dt;
+                        leftMomentum += momentumIncreaseSpeed * dt;
                     }
-                    else
-                    {
-                        leftMomentum = 0f;
-                    }
+                 
                 }
 
 
@@ -239,15 +240,17 @@ public class PlayerController : MonoBehaviour
                     TiltRight(dt);
                     if (!Input.GetKey(KeyCode.A))
                     {
-                        //rightMomentum += momentumIncreaseSpeed * dt;
+                        rightMomentum += momentumIncreaseSpeed * dt;
                     }
-                    else
-                    {
-                        rightMomentum = 0f;
-                    }
+                  
                 }
             }
 
+            if(movement.x <= 0 && rightMomentum > 0) { rightMomentum = Mathf.Clamp(rightMomentum - momentumDecrease * Time.fixedDeltaTime, 0, 100); }
+            if (movement.x >= 0 && leftMomentum > 0) { print(Mathf.Clamp(leftMomentum - momentumDecrease * Time.fixedDeltaTime, 0, 100)); ; leftMomentum = Mathf.Clamp(leftMomentum - momentumDecrease * Time.fixedDeltaTime, 0, 100); }
+
+            print(movement.x);
+            
             // Move the character
             transform.position += new Vector3(movement.x, movement.y, 0) * moveSpeed * Time.fixedDeltaTime;
             // rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
