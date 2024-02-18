@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    private PassengerSpawner spawner;
     [SerializeField] private int health = 10;
     public int points;
 
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         damageCD = tiltTimeDamageIntervals;
+        spawner = GameObject.Find("Spawner").gameObject.GetComponent<PassengerSpawner>();
     }
 
     void TiltLeft(float dt)
@@ -169,6 +171,7 @@ public class PlayerController : MonoBehaviour
     public void DealDamage(int damage)
     {
         Health -= damage;
+        spawner.MakePassengerFallOff();
     }
     void Death()
     {

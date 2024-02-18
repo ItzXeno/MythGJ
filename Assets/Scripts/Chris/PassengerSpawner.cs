@@ -1,7 +1,11 @@
+using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class PassengerSpawner : MonoBehaviour
 {
+
+    private PlayerController playerController;
     public GameObject passengerPrefab;
     public int rows = 5;
     public int columns = 2;
@@ -10,20 +14,40 @@ public class PassengerSpawner : MonoBehaviour
 
     private void Start()
     {
-        passengers = new GameObject[columns, rows]; // Initialize the array
-        SpawnPassengers();
+        playerController = GetComponentInParent<PlayerController>();
+
+        if (playerController != null)
+        {
+            // Use the player's health to determine the number of passengers
+            int health = playerController.Health;
+            int rows = 5; // Assuming you still want to arrange them in 5 rows
+            int columns = Mathf.CeilToInt((float)health / rows); // Calculate columns needed
+
+            passengers = new GameObject[columns, rows]; // Initialize the array based on health
+            SpawnPassengers(health, rows, columns);
+        }
+        else
+        {
+            Debug.LogError("PlayerController not found on parent GameObject");
+        }
     }
 
-    private void SpawnPassengers()
+    private void SpawnPassengers(int health, int rows, int columns)
     {
-        passengers = new GameObject[columns, rows]; // Re-initialize the array for safety
+        // Calculate an offset to center or move the grid of passengers more to the left
+        float xOffset = -(columns * spacing / 2) + (spacing / 2); // Adjust this calculation as needed
+
+        int passengerCount = 0; // Keep track of how many passengers have been instantiated
 
         for (int row = 0; row < rows; row++)
         {
             for (int col = 0; col < columns; col++)
             {
-                // Calculate the position for each passenger
-                Vector3 position = new Vector3(col * spacing, row * -spacing, 0); // Negative for y to go down
+                if (passengerCount >= health) // Stop spawning if we've hit the health count
+                    return;
+
+                // Use the xOffset to adjust the position of each passenger
+                Vector3 position = new Vector3(col * spacing + xOffset, row * -spacing, 0);
 
                 // Instantiate the passenger
                 GameObject newPassenger = Instantiate(passengerPrefab, position, Quaternion.identity, transform);
@@ -35,6 +59,8 @@ public class PassengerSpawner : MonoBehaviour
                 {
                     spriteRenderer.flipX = true; // Flip the sprite to face right
                 }
+
+                passengerCount++;
             }
         }
     }
@@ -52,6 +78,7 @@ public class PassengerSpawner : MonoBehaviour
             if (passenger != null && passenger.activeSelf)
             {
                 passenger.GetComponent<Passenger>().FallOff();
+                //passenger.GetComponent<BoxCollider2D>().enabled = false;
                 passengers[col, row] = null; // Set the array element to null after making the passenger fall off
                 break; // Only remove one passenger per call
             }
