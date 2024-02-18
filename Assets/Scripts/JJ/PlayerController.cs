@@ -53,7 +53,6 @@ public class PlayerController : MonoBehaviour
         get { return PlayerPrefs.GetInt("Highscore"); } 
         
         set {
-            print("Setting HIGHSCORE");
             int currentHighscore = PlayerPrefs.GetInt("Highscore"); 
             if(value > currentHighscore)
             {
