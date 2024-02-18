@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PassengerSpawner : MonoBehaviour
 {
+    [SerializeField] private Vector3 spawnLocationOffset = new Vector3(0, 0, 0); // Default to no offset
 
     private PlayerController playerController;
     public GameObject passengerPrefab;
@@ -34,7 +35,6 @@ public class PassengerSpawner : MonoBehaviour
 
     private void SpawnPassengers(int health, int rows, int columns)
     {
-        // Calculate an offset to center or move the grid of passengers more to the left
         float xOffset = -(columns * spacing / 2) + (spacing / 2); // Adjust this calculation as needed
 
         int passengerCount = 0; // Keep track of how many passengers have been instantiated
@@ -46,24 +46,24 @@ public class PassengerSpawner : MonoBehaviour
                 if (passengerCount >= health) // Stop spawning if we've hit the health count
                     return;
 
-                // Use the xOffset to adjust the position of each passenger
-                Vector3 position = new Vector3(col * spacing + xOffset, row * -spacing, 0);
+                // Apply the spawn location offset here
+                Vector3 position = new Vector3(col * spacing + xOffset, row * -spacing, 0) + spawnLocationOffset;
 
-                // Instantiate the passenger
                 GameObject newPassenger = Instantiate(passengerPrefab, position, Quaternion.identity, transform);
                 passengers[col, row] = newPassenger; // Store the passenger in the array
 
-                // If the passenger is on the left side (col == 0), flip the sprite
+                // Flipping sprite based on column
                 SpriteRenderer spriteRenderer = newPassenger.GetComponent<SpriteRenderer>();
                 if (col == 0 && spriteRenderer != null)
                 {
-                    spriteRenderer.flipX = true; // Flip the sprite to face right
+                    spriteRenderer.flipX = true;
                 }
 
                 passengerCount++;
             }
         }
     }
+
 
     // Call this method to make a passenger fall off
     public void MakePassengerFallOff()
